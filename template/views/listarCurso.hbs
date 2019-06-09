@@ -1,0 +1,28 @@
+{{>header}}
+
+<div class="container">
+ 	 <div class="row mt-2">
+ 	 	<h2>Lista de cursos</h2>
+ 	 	<br>
+		{{{listarCursos}}}
+	</div>
+<hr>
+<div class="row mt-2">
+	<div class="card w-100">
+		  <div class="card-body">
+	    <h2>Actualiza estado del curso</h2>
+		<br>
+		<form action="/cambiarEstado" method="post">
+		  <div class="form-group">
+		    <label for="listCurso">Curso</label>
+		    		{{{selectCursos}}}
+		  </div>
+		  <button type="submit" class="btn btn-primary">Actualizar</button>
+		</form>
+
+	  </div>
+	</div>	
+</div>
+</div>
+
+{{>footer}}

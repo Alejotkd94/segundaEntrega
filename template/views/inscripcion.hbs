@@ -1,0 +1,48 @@
+{{>header}}
+
+<div class="container">
+	<div class="row mt-3">
+	<div class="col-sm-12 text-center">
+		<h2>Inscribirse en un curso</h2>
+		<br>
+		<p>Ingrese los datos del  siguiente formulario para realizar la incripción en un nuevo curso</p>
+	</div>
+	<div class="col-sm-12 mt-3">
+		<form action="/InscribirCurso" method="post">
+		    <div class="form-row">
+			    <div class="form-group col-md-6">
+			      <label for="docIdentidad">Documento identidad</label>
+			      <input type="number" class="form-control" id="docIdentidad" name="docIdentidad" placeholder="Documento identidad" required>
+			    </div>
+			    <div class="form-group col-md-6">
+			      <label for="email">Correo electrónico</label>
+			      <input type="email" class="form-control" id="email" name="email" placeholder="Correo electrónico" required>
+			    </div>
+			</div>
+
+			<div class="form-row">
+			    <div class="form-group col-md-6">
+			       <label for="nombre">Nombre completo</label>
+			      <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre completo" required>
+			    </div>
+			    <div class="form-group col-md-6">
+			      <label for="telefono">Teléfono</label>
+			      <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" required>
+			    </div>
+			</div>
+
+			<div class="form-row">
+				<div class="form-group col-md-12">
+			    <label for="listCurso">Cursos disponibles</label>
+		    		{{{selectCursos}}}
+		    	</div>
+			</div>
+
+			<button type="submit" class="btn btn-success">Registrar</button>
+
+		</form>
+	</div>
+	</div>
+</div>
+
+{{>footer}}
