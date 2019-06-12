@@ -1,6 +1,7 @@
 const fs = require('fs');
 listaEstudiantes =[];
 listaCursos =[];
+listaUsuarios=[];
 
 const crearCurso = (curso) => {
 	let result = '1';
@@ -168,6 +169,53 @@ const eliminarAspirante=(aspirante)=>{
 	return result;
 }
 
+const listUsuarios = () =>{
+	try{
+		listaUsuarios= JSON.parse(fs.readFileSync('listadoUsuarios.json'));
+	}catch(Error){
+		listaUsuarios =[];
+	}
+	return listaUsuarios;
+}
+
+const listarUsuarios = () =>{
+	try{
+		listaUsuarios= JSON.parse(fs.readFileSync('listadoUsuarios.json'));
+	}catch(Error){
+		listaUsuarios =[];
+	}
+}
+
+const guardar = () => {
+    let datos = JSON.stringify(listaUsuarios);
+    fs.writeFile('listadoUsuarios.json', datos, (err)=>{
+        if (err) throw (err);
+        	result = '-2';
+    })
+}
+
+const actualizarRol=(docIdentidad)=>{
+	let result = '1';
+	listarUsuarios();
+
+	let oUsuario = listaUsuarios.find(buscar => buscar.docIdentidad == docIdentidad);
+
+	if(!oUsuario)
+		result = '-3';
+
+	if(oUsuario['rol']=='Docente') {
+		oUsuario['rol'] = 'Aspirante';
+		guardar()
+	}
+
+	if(oUsuario['rol']=='Aspirante'){
+		oUsuario['rol'] = 'Docente';
+		guardar()
+	}
+
+	return result;
+}
+
 
 module.exports ={
 	crearCurso,
@@ -175,5 +223,7 @@ module.exports ={
 	listCurso,
 	Inscripcion,
 	listInscripcion,
-	eliminarAspirante
+	eliminarAspirante,
+	listUsuarios,
+	actualizarRol
 }

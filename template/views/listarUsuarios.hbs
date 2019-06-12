@@ -1,0 +1,29 @@
+{{>header}}
+
+<div class="container">
+ 	 <div class="row mt-2">
+ 	 	<h2>Lista de Usuarios</h2>
+ 	 	<br>
+		{{{listarUsuarios}}}
+	</div>
+<hr>
+<div class="row mt-2">
+	<div class="card w-100">
+		  <div class="card-body">
+	    <h2>Actualizar Rol de un Usuario</h2>
+		<br>
+		<form action="/cambiarRol" method="post">
+		  <div class="form-group">
+		    <label for="listUsuario">Usuario</label>
+		    		{{{selectUsuarios}}}
+		  </div>
+		  <button type="submit" class="btn btn-primary">Actualizar</button>
+		</form>
+
+	  </div>
+	</div>	
+</div>
+
+</div>
+
+{{>footer}}

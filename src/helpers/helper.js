@@ -171,3 +171,53 @@ hbs.registerHelper('listarInscriptos',() =>{
 });
 return texto;
 });
+
+
+hbs.registerHelper('listarUsuarios',() =>{
+	
+	listaUsuarios = funciones.listUsuarios();
+
+ let texto=`<table class="table table-striped">
+			  <thead>
+			    <tr>
+			      <th scope="col">Documento Identidad</th>
+			      <th scope="col">Nombre</th>
+			      <th scope="col">Email</th>
+			      <th scope="col">Teléfono</th>
+			      <th scope="col">Rol</th>
+  			    </tr>
+			  </thead>
+			  <tbody>`;
+
+
+  listaUsuarios.forEach(oUsuario=>{
+		texto = texto + `<tr>
+				  <th scope="row">${oUsuario.docIdentidad}</th>
+				  <td>${oUsuario.nombre}</td>
+				  <td>${oUsuario.email}</td>
+				  <td>${oUsuario.telefono}</td>
+				  <td>${oUsuario.rol}</td>
+				</tr>`;
+	});
+
+  	texto = texto + "</tbody>"+
+					"</table>";
+	return texto;
+});
+
+hbs.registerHelper('selectUsuarios',() =>{
+	
+	listaUsuarios = funciones.listUsuarios();
+
+ let texto=`<select class="form-control form-control-lg" id="listUsuarios" name="docIdentidad" required>
+			        <option value="">Seleccione un Usuario</option>`;
+
+listaUsuarios.forEach(oUsuario=>{
+  	if(oUsuario.rol == 'Docente' || oUsuario.rol == 'Aspirante'){
+  		texto = texto + `<option value="${oUsuario.docIdentidad}">${oUsuario.nombre}</option>`;
+  	}
+});
+
+  	texto = texto + "</select>";
+	return texto;
+});

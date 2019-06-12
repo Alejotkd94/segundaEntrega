@@ -75,7 +75,7 @@ app.post('/RegistarCurso', (req, res)=>{
 	});
 });
 
-app.get('/litarCursos', (req, res)=>{
+app.get('/listarCursos', (req, res)=>{
 	res.render('../template/views/listarCurso',{
 		titulo : 'Administrar cursos'
 	});
@@ -102,19 +102,19 @@ app.post('/cambiarEstado', (req, res)=>{
 			case '-1':
 				res.render('../template/views/error',{
 				mensaje: 'Se presento un error al momento de actualizar el estado del curso.',
-				regresar : '/litarCursos'});
+				regresar : '/listarCursos'});
 			break;
 
 			case '-3':
 				res.render('../template/views/error',{
 				mensaje: 'No se encontro el curso ha actualizar.',
-				regresar : '/litarCursos'});
+				regresar : '/listarCursos'});
 			break;
 
 			case '-2':
 				res.render('../template/views/error',{
 				mensaje: 'Se presento un error al momento almacenar el estado del curso.',
-				regresar : '/litarCursos'});
+				regresar : '/listarCursos'});
 			break;
 
 			default:
@@ -218,6 +218,51 @@ app.post('/eliminarAspirante', (req, res)=>{
 app.get('/listarInsctritos', (req, res)=>{
 	res.render('../template/views/listarInscritos',{
 		titulo : 'Lista inscritos'
+	});
+});
+
+app.get('/listarUsuarios', (req, res)=>{
+	res.render('../template/views/listarUsuarios',{
+		titulo : 'Lista Usuarios'
+	});
+});
+
+app.post('/cambiarRol', (req, res)=>{
+
+	let docIdentidad = parseInt(req.body.docIdentidad);
+
+	let actualizarRole =(docIdentidad,callback) => {
+		let resultado = funciones.actualizarRol(docIdentidad);
+	 	callback(resultado);
+	}
+
+	actualizarRole(docIdentidad,function(resultado){
+
+		switch(resultado){
+			case '-1':
+				res.render('../template/views/error',{
+				mensaje: 'Se presento un error al momento de actualizar el rol del usuario.',
+				regresar : '/listarUsuarios'});
+			break;
+
+			case '-3':
+				res.render('../template/views/error',{
+				mensaje: 'No se encontro el usuario a actualizar.',
+				regresar : '/listarUsuarios'});
+			break;
+
+			case '-2':
+				res.render('../template/views/error',{
+				mensaje: 'Se presento un error al momento de almacenar el rol del usuario.',
+				regresar : '/listarUsuarios'});
+			break;
+
+			default:
+				res.render('../template/views/listarUsuarios',{
+				titulo : 'lista usuarios',
+				regresar : '/listarUsuarios'});
+			break;
+		}
 	});
 });
 
