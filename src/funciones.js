@@ -186,14 +186,6 @@ const listarUsuarios = () =>{
 	}
 }
 
-const guardar = () => {
-    let datos = JSON.stringify(listaUsuarios);
-    fs.writeFile('listadoUsuarios.json', datos, (err)=>{
-        if (err) throw (err);
-        	result = '-2';
-    })
-}
-
 const actualizarRol=(docIdentidad)=>{
 	let result = '1';
 	listarUsuarios();
@@ -203,16 +195,54 @@ const actualizarRol=(docIdentidad)=>{
 	if(!oUsuario)
 		result = '-3';
 
-	if(oUsuario['rol']=='Docente') {
+	else if(oUsuario['rol']=='Docente') {
 		oUsuario['rol'] = 'Aspirante';
-		guardar()
+
+		let datos = JSON.stringify(listaUsuarios);
+
+		fs.writeFile('listadoUsuarios.json', datos, (err)=>{
+			if(err){
+				result = '-2';
+			}
+		})
 	}
 
-	if(oUsuario['rol']=='Aspirante'){
+	else if(oUsuario['rol']=='Aspirante'){
 		oUsuario['rol'] = 'Docente';
-		guardar()
+		
+		let datos1 = JSON.stringify(listaUsuarios);
+
+		fs.writeFile('listadoUsuarios.json', datos1, (err)=>{
+			if(err){
+				result = '-2';
+			}
+		})
 	}
 
+	return result;
+}
+
+const actualizarUsuario = (doc, nom, mail, tel) => {
+	let result = '1';
+    listarUsuarios()
+    let usuario = listaUsuarios.find(buscar => buscar.docIdentidad == doc)
+    if(!usuario){
+        result = '-3'
+    }
+    else {
+		usuario['docIdentidad'] = doc;
+		usuario['nombre'] = nom;
+		usuario['email'] = mail;
+		usuario['telefono'] = tel;
+
+		let datos = JSON.stringify(listaUsuarios);
+
+		fs.writeFile('listadoUsuarios.json', datos, (err)=>{
+			if(err){
+				result = '-2';
+			}
+		})
+	}
 	return result;
 }
 
@@ -225,5 +255,6 @@ module.exports ={
 	listInscripcion,
 	eliminarAspirante,
 	listUsuarios,
-	actualizarRol
+	actualizarRol,
+	actualizarUsuario
 }

@@ -221,3 +221,59 @@ listaUsuarios.forEach(oUsuario=>{
   	texto = texto + "</select>";
 	return texto;
 });
+
+hbs.registerHelper('verlistaUsuarios',() =>{
+	
+	listaUsuarios = funciones.listUsuarios();
+
+   let texto = ``;
+
+   listaUsuarios.forEach(oUsuario=>{
+  	texto= texto +`<div class="col-sm-12 col-lg-12 mt-2">
+							<div class="accordion" id="accordionCursos${oUsuario.docIdentidad}">
+								  <div class="card">
+									    <div class="card-header" id="${oUsuario.docIdentidad}">
+										    	<p>
+										    		Nombre : ${oUsuario.nombre}<br>
+										    		Valor : $${oCurso.valor}
+										    	</p>
+										    	<hr>
+										      <h2 class="mb-0">
+										      <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse${oUsuario.docIdentidad}" aria-expanded="true" aria-controls="collapse${oUsuario.docIdentidad}">
+										          Mas Información
+										       </button>
+										      </h2>
+									    </div>
+
+								       <div id="collapse${oUsuario.docIdentidad}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionCursos${oUsuario.docIdentidad}">
+									      <div class="card-body">
+										      	<ul class="list-group">
+												  <li class="list-group-item"><strong>Descripción :</strong> ${oCurso.descripcion}</li>
+												  <li class="list-group-item"><strong>Modalidad :</strong> ${oCurso.modalidad}</li>
+												  <li class="list-group-item"><strong>Intensidad horaria :</strong> ${oCurso.intensidadHoraria}</li>
+												  <li class="list-group-item"><strong>Valor :</strong> $${oCurso.valor}</li>
+												</ul>
+											</div>					        
+								      </div>
+								    </div>
+							 </div>
+					</div>`;
+  	
+});
+return texto;
+});
+
+hbs.registerHelper('selectActualizar',() =>{
+	
+	listaUsuarios = funciones.listUsuarios();
+
+ let texto=`<select class="form-control form-control-lg" id="listUsuarios" name="docIdentidad" required>
+			        <option value="">Seleccione un Usuario</option>`;
+
+listaUsuarios.forEach(oUsuario=>{
+  	texto = texto + `<option value="${oUsuario.docIdentidad}">${oUsuario.nombre}</option>`;
+});
+
+  	texto = texto + "</select>";
+	return texto;
+});

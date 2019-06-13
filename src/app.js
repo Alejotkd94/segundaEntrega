@@ -231,12 +231,12 @@ app.post('/cambiarRol', (req, res)=>{
 
 	let docIdentidad = parseInt(req.body.docIdentidad);
 
-	let actualizarRole =(docIdentidad,callback) => {
+	let actualizarRol =(docIdentidad,callback) => {
 		let resultado = funciones.actualizarRol(docIdentidad);
 	 	callback(resultado);
 	}
 
-	actualizarRole(docIdentidad,function(resultado){
+	actualizarRol(docIdentidad,function(resultado){
 
 		switch(resultado){
 			case '-1':
@@ -259,11 +259,57 @@ app.post('/cambiarRol', (req, res)=>{
 
 			default:
 				res.render('../template/views/listarUsuarios',{
-				titulo : 'lista usuarios',
-				regresar : '/listarUsuarios'});
+				titulo : 'lista usuarios'});
 			break;
 		}
 	});
+});
+
+app.get('/actualizarUsuarios', (req, res)=>{
+	res.render('../template/views/actualizarUsuarios',{
+		titulo : 'Actualizar Usuarios'
+	});
+});
+
+app.post('/actualizarDatos', (req, res)=>{
+
+	let doc = parseInt(req.body.docIdentidad);
+	let nom = req.body.nombre;
+	let mail = req.body.email;
+	let tel = parseInt(req.body.telefono);
+
+	let actualizarUsuario =(doc,nom,mail,tel,callback) => {
+		let resultado = funciones.actualizarUsuario(doc,nom,mail,tel);
+	 	callback(resultado);
+	}
+
+	actualizarUsuario(doc,nom,mail,tel,function(resultado){
+
+		switch(resultado){
+			case '-1':
+				res.render('../template/views/error',{
+				mensaje: 'Se presento un error al momento de actualizar los datos del usuario.',
+				regresar : '/actualizarUsuarios'});
+			break;
+
+			case '-3':
+				res.render('../template/views/error',{
+				mensaje: 'No se encontro el usuario a actualizar.',
+				regresar : '/actualizarUsuarios'});
+			break;
+
+			case '-2':
+				res.render('../template/views/error',{
+				mensaje: 'Se presento un error al momento de almacenar los datos del usuario.',
+				regresar : '/actualizarUsuarios'});
+			break;
+
+			default:
+				res.render('../template/views/listarUsuarios',{
+				titulo : 'actualizacion usuarios'});
+			break;
+		}
+		});
 });
 
 app.get('*',(req, res)=>{
