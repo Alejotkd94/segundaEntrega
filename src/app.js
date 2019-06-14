@@ -5,6 +5,7 @@ const hbs = require('hbs');
 const bodyParser = require('body-parser');
 const funciones = require('./funciones');
  // prueba
+const port = process.env.PORT || 3000;
 
 require('./helpers/helper');
 
@@ -318,7 +319,7 @@ app.get('*',(req, res)=>{
 		regresar : '/'});
 });
 
-app.listen(3000,()=>{
-	console.log('Escuchando en el puerto 3000');
+app.listen(port,()=>{
+	console.log('Escuchando en el puerto ' + port);
 });
 
